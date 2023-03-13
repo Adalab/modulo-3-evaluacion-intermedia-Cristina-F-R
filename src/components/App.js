@@ -2,6 +2,7 @@
 
 // - De React
 // - Nuestros
+import sentences from '../data/sentences.json'
 // - Sass
 import '../styles/App.scss';
 // - Imágenes
@@ -10,14 +11,31 @@ import '../styles/App.scss';
 function App() {
   /* VARIABLES ESTADO (DATOS) */
 
-  /* EFECTOS (día 5) */
 
   /* FUNCIONES HANDLER */
 
   /* FUNCIONES Y VARIABLES AUXILIARES PARA PINTAR EL HTML */
+  const renderSentences = () =>{
+    return sentences 
+    .map((eachSentence, index) => (
+      <li className='listLi' key={index}>
+        <p className='ListLi__quote'>{eachSentence.quote} - </p> 
+        <p className='ListLi__name'>{eachSentence.character}</p>
+      </li>
+    ))
+  }
 
   /* HTML */
-  return <div className="App">{/* Aquí va el HTML */}</div>;
+  return <div className="App">
+    <header>
+      <h1>Frases de Friends</h1>
+      <main>
+        <ul>
+          {renderSentences()}
+        </ul>
+      </main>
+    </header>
+  </div>;
 }
 
 /* PROP-TYPES */
