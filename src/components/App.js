@@ -12,6 +12,8 @@ function App() {
   
 const [filterQuote, setFilterQuote] = useState(' ');
 const [character, setCharacter] = useState('Todos');
+const [newQuote, setNewQuote] = useState({quote:'', character:''});
+const [data, setData] = useState(sentences);
 
   /* FUNCIONES HANDLER */
 const handleQuoteFilter = (ev) =>{
@@ -23,9 +25,18 @@ const handleCharacterFilter = (ev) =>{
   setCharacter(ev.target.value);
 }
 
+const handleInputnewQuote = (ev) =>{
+  const inputValue = ev.target.value;
+  setNewQuote({...newQuote, [ev.target.id]: inputValue})
+}
+const handleNewQuote = (ev) => {
+  ev.preventDefault();
+  setData([...data, newQuote]);
+}
+
   /* FUNCIONES Y VARIABLES AUXILIARES PARA PINTAR EL HTML */
   const renderSentences = () =>{
-    return sentences
+    return data
     .filter((eachSentence) => {
       return (eachSentence.quote.toLocaleLowerCase().includes(filterQuote.toLocaleLowerCase()))
     })
@@ -73,9 +84,28 @@ const handleCharacterFilter = (ev) =>{
       </form>
       </header>
       <main>
-        <ul>
-          {renderSentences()}
-        </ul>
+        <section>
+          <ul>
+            {renderSentences()}
+          </ul>
+        </section>
+        <section>
+          <h2>Añadir una nueva frase:</h2>
+          <form action="">
+            <label htmlFor="newquote"> Frase:
+              <input type="text" id="quote" onChange={handleInputnewQuote}/>
+            </label>
+          <select name="newCharacter" id="character"  onChange={handleInputnewQuote}>
+            <option value="Ross" name='character'>Ross</option>
+            <option value="Monica"name='character'>Monica</option>
+            <option value="Joey" name='character'>Joey</option>
+            <option value="Phoebe" name='character'>Phoebe</option>
+            <option value="Chandler" name='character'>Chandler</option>
+            <option value="Rachel" name='character'>Rachel</option>
+          </select>
+          <input type="submit" value="Añade una nueva frase" onClick={handleNewQuote}/>
+          </form>
+        </section>
       </main>
     
   </div>;
