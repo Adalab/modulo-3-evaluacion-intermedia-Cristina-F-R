@@ -12,18 +12,26 @@ import '../styles/App.scss';
 function App() {
   /* VARIABLES ESTADO (DATOS) */
 const [filterQuote, setFilterQuote] = useState(' ');
+const [character, setCharacter] = useState('Todos');
 
   /* FUNCIONES HANDLER */
 const handleQuoteFilter = (ev) =>{
   setFilterQuote(ev.target.value);
 
 }
+
+const handleCharacterFilter = (ev) =>{
+  setCharacter(ev.target.value);
+}
+
   /* FUNCIONES Y VARIABLES AUXILIARES PARA PINTAR EL HTML */
   const renderSentences = () =>{
     return sentences
     .filter((eachSentence) => {
-      return (eachSentence.quote.toLocaleLowerCase().includes(filterQuote.toLocaleLowerCase() ||
-      eachSentence.quote.toLocaleLowerCase().includes(filterQuote.toLocaleLowerCase())))
+      return (eachSentence.quote.toLocaleLowerCase().includes(filterQuote.toLocaleLowerCase()))
+    })
+    .filter((eachSentence) => {
+      return (eachSentence.character.toLocaleLowerCase()===(character.toLocaleLowerCase()))
     })
     .map((eachSentence, index) => (
       <li className='listLi' key={index}>
@@ -38,15 +46,27 @@ const handleQuoteFilter = (ev) =>{
     <header>
       <h1>Frases de Friends</h1>
       <form>
-        <label htmlFor="porFrase">
+        <label htmlFor="quote">
           Filtrar por frase:
         <input 
         type="text" 
-        id="porFrase" 
+        id="quote" 
         placeholder='Escribe una palabra'
         onChange={handleQuoteFilter} 
-        // value={}
+        value={filterQuote}
         />
+        </label>
+        <label htmlFor="character">
+          Filtrar por personaje:
+        <select name="character" id="character" onChange={handleCharacterFilter}>
+          <option value="Todos">Todos</option>
+          <option value="Ross">Ross</option>
+          <option value="Monica">Monica</option>
+          <option value="Joey">Joey</option>
+          <option value="Phoebe">Phoebe</option>
+          <option value="Chandler">Chandler</option>
+          <option value="Rachel">Rachel</option>
+        </select>
         </label>
       </form>
       </header>
