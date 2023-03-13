@@ -1,16 +1,15 @@
 /* SECCIÓN DE IMPORT */
-
-// - De React
 import { useState } from 'react';
-// - Nuestros
 import sentences from '../data/sentences.json'
-// - Sass
 import '../styles/App.scss';
-// - Imágenes
+
 
 /* SECCIÓN DEL COMPONENTE */
+
 function App() {
+
   /* VARIABLES ESTADO (DATOS) */
+  
 const [filterQuote, setFilterQuote] = useState(' ');
 const [character, setCharacter] = useState('Todos');
 
@@ -31,8 +30,11 @@ const handleCharacterFilter = (ev) =>{
       return (eachSentence.quote.toLocaleLowerCase().includes(filterQuote.toLocaleLowerCase()))
     })
     .filter((eachSentence) => {
-      return (eachSentence.character.toLocaleLowerCase()===(character.toLocaleLowerCase()))
-    })
+      if(character !== 'Todos'){
+        return (eachSentence.character.toLocaleLowerCase()===(character.toLocaleLowerCase()))
+      }else{
+      return eachSentence;
+    }})
     .map((eachSentence, index) => (
       <li className='listLi' key={index}>
         <p className='ListLi__quote'>{eachSentence.quote} - </p> 
@@ -78,8 +80,6 @@ const handleCharacterFilter = (ev) =>{
     
   </div>;
 }
-
-/* PROP-TYPES */
 
 /* EXPORT DEL COMPONENTE */
 export default App;
