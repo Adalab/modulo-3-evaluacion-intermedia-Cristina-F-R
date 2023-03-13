@@ -1,1 +1,63 @@
 /* Aquí van tus estilos */
+.header{
+    &__title{
+        text-align: center;
+        padding: 2rem;
+        font-size: 2.5rem;
+    }
+    &__form{
+        padding: 2rem 1rem;
+        letter-spacing: 0.1rem;
+        background-color: rgb(193, 193, 193);
+
+        &_input{
+            font-size:1.2rem; 
+            margin-right: 1rem;     
+        }
+    }
+}
+
+.main__quotes_ul{
+    display: flex;
+    flex-direction: column;
+    
+}
+.listLi{
+    display: inline-block;
+    padding: 1rem;
+    width: 45%;
+
+    &__quote{
+      font-style: oblique;
+      font-size: 1.1rem;
+      color:rgb(19, 19, 19);
+    }
+
+    &__name{
+        text-transform: uppercase;
+        padding-top: 0.3rem;
+        
+    }
+}
+.main__addQuote{
+    background-color: rgb(193, 193, 193);
+    padding: 2rem 1rem;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    display: flex;
+    gap:2rem;
+}
+
+.inputformAdd{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+.quote{
+    width: 50vw;
+}
+
+.btnform{
+    font-size: 1.2rem;
+    padding: 0rem 0.8rem;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.24);
+}

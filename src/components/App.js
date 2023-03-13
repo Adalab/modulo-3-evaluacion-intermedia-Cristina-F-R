@@ -48,30 +48,31 @@ const handleNewQuote = (ev) => {
     }})
     .map((eachSentence, index) => (
       <li className='listLi' key={index}>
-        <p className='ListLi__quote'>{eachSentence.quote} - </p> 
-        <p className='ListLi__name'>{eachSentence.character}</p>
+        <p className='listLi__quote'>{eachSentence.quote} </p> 
+        <p className='listLi__name'>{eachSentence.character}</p>
       </li>
     ))
   }
 
   /* HTML */
   return <div className="App">
-    <header>
-      <h1>Frases de Friends</h1>
-      <form>
+    <header className='header'>
+      <h1 className='header__title'>Frases de Friends</h1>
+      <form className='header__form'>
         <label htmlFor="quote">
           Filtrar por frase:
         <input 
         type="text" 
         id="quote" 
         placeholder='Escribe una palabra'
+        className='header__form_input'
         onChange={handleQuoteFilter} 
         value={filterQuote}
         />
         </label>
         <label htmlFor="character">
           Filtrar por personaje:
-        <select name="character" id="character" onChange={handleCharacterFilter}>
+        <select name="character" id="character" className='header__form_input' onChange={handleCharacterFilter}>
           <option value="Todos">Todos</option>
           <option value="Ross">Ross</option>
           <option value="Monica">Monica</option>
@@ -83,27 +84,27 @@ const handleNewQuote = (ev) => {
         </label>
       </form>
       </header>
-      <main>
-        <section>
-          <ul>
+      <main className='main'>
+        <section className='main__quotes'>
+          <ul className='=main__quotes_ul'>
             {renderSentences()}
           </ul>
         </section>
         <section>
           <h2>Añadir una nueva frase:</h2>
-          <form action="">
-            <label htmlFor="newquote"> Frase:
-              <input type="text" id="quote" onChange={handleInputnewQuote}/>
+          <form action="" className='main__addQuote'>
+            <label htmlFor="newquote" > Frase:
+              <input type="text" id="quote" className="inputformAdd quote" onChange={handleInputnewQuote}/>
             </label>
-          <select name="newCharacter" id="character"  onChange={handleInputnewQuote}>
-            <option value="Ross" name='character'>Ross</option>
-            <option value="Monica"name='character'>Monica</option>
-            <option value="Joey" name='character'>Joey</option>
-            <option value="Phoebe" name='character'>Phoebe</option>
-            <option value="Chandler" name='character'>Chandler</option>
-            <option value="Rachel" name='character'>Rachel</option>
+          <select name="newCharacter" id="character"  className="inputformAdd" onChange={handleInputnewQuote}>
+            <option value="Ross" name='character' className="inputformAdd">Ross</option>
+            <option value="Monica"name='character' className="inputformAdd">Monica</option>
+            <option value="Joey" name='character' className="inputformAdd">Joey</option>
+            <option value="Phoebe" name='character' className="inputformAdd">Phoebe</option>
+            <option value="Chandler" name='character' className="inputformAdd">Chandler</option>
+            <option value="Rachel" name='character' className="inputformAdd">Rachel</option>
           </select>
-          <input type="submit" value="Añade una nueva frase" onClick={handleNewQuote}/>
+          <input type="submit" value="Añade una nueva frase" className="btnform" onClick={handleNewQuote}/>
           </form>
         </section>
       </main>
