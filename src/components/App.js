@@ -1,5 +1,5 @@
 /* SECCIÓN DE IMPORT */
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import sentences from '../data/sentences.json'
 import '../styles/App.scss';
 
@@ -9,11 +9,27 @@ import '../styles/App.scss';
 function App() {
 
   /* VARIABLES ESTADO (DATOS) */
-  
 const [filterQuote, setFilterQuote] = useState(' ');
 const [character, setCharacter] = useState('Todos');
 const [newQuote, setNewQuote] = useState({quote:'', character:''});
 const [data, setData] = useState(sentences);
+
+  const getDataApi = () => {
+    return fetch('https://beta.adalab.es/curso-intensivo-fullstack-recursos/apis/quotes-friends-tv-v1/quotes.json')
+        .then((response) => response.json())
+        .then((data) => {
+            return data;
+        });
+};
+
+useEffect(() => {
+      getDataApi()
+        .then(data => {
+          setData(data);
+        });
+  }, []);
+  
+
 
   /* FUNCIONES HANDLER */
 const handleQuoteFilter = (ev) =>{
@@ -26,12 +42,15 @@ const handleCharacterFilter = (ev) =>{
 }
 
 const handleInputnewQuote = (ev) =>{
+  if(ev.target.value !== ''){
   const inputValue = ev.target.value;
-  setNewQuote({...newQuote, [ev.target.id]: inputValue})
+  setNewQuote({...newQuote, [ev.target.id]: inputValue})}
 }
+
 const handleNewQuote = (ev) => {
   ev.preventDefault();
   setData([...data, newQuote]);
+  setNewQuote({quote:'', character:''})
 }
 
   /* FUNCIONES Y VARIABLES AUXILIARES PARA PINTAR EL HTML */
@@ -53,7 +72,7 @@ const handleNewQuote = (ev) => {
       </li>
     ))
   }
-
+  
   /* HTML */
   return <div className="App">
     <header className='header'>
@@ -72,7 +91,7 @@ const handleNewQuote = (ev) => {
         </label>
         <label htmlFor="character">
           Filtrar por personaje:
-        <select name="character" id="character" className='header__form_input' onChange={handleCharacterFilter}>
+        <select name="character" id="character" className='header__form_input' onChange={handleCharacterFilter} value={character}>
           <option value="Todos">Todos</option>
           <option value="Ross">Ross</option>
           <option value="Monica">Monica</option>
@@ -94,9 +113,9 @@ const handleNewQuote = (ev) => {
           <h2>Añadir una nueva frase:</h2>
           <form action="" className='main__addQuote'>
             <label htmlFor="newquote" > Frase:
-              <input type="text" id="quote" className="inputformAdd quote" onChange={handleInputnewQuote}/>
+              <input type="text" id="quote" className="inputformAdd quote" onChange={handleInputnewQuote} value={newQuote.quote}/>
             </label>
-          <select name="newCharacter" id="character"  className="inputformAdd" onChange={handleInputnewQuote}>
+          <select name="newCharacter" id="character"  className="inputformAdd" onChange={handleInputnewQuote} value={newQuote.character}>
             <option value="Ross" name='character' className="inputformAdd">Ross</option>
             <option value="Monica"name='character' className="inputformAdd">Monica</option>
             <option value="Joey" name='character' className="inputformAdd">Joey</option>
